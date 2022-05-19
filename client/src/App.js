@@ -1,10 +1,13 @@
+import './App.css'
 // Pages
-import AuthScreen from './pages/AuthScreen'
+// import AuthScreenPage from './pages/AuthScreenPage'
+import HomePage from './pages/HomePage'
 
 
 const App =()=> {
   return (
-    <AuthScreen />
+    // <AuthScreenPage />
+    <HomePage / >
   )
 }
 export default App

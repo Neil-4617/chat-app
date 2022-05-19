@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 // materialUI
 import { Box, Card, Stack, Typography, TextField, Button} from '@mui/material'
 
-const AuthScreen = () => {
+const AuthScreenPage = () => {
 	// state
 	const [showSignup, setShowSignup] = useState(true)
 	const [formData, setFormData] = useState({})
@@ -77,6 +77,7 @@ const AuthScreen = () => {
 					
 					<Typography 
 						variant="subtitle2"
+						color="textSecondary"
 						onClick = {() => {
 							setShowSignup(!showSignup)
 							}
@@ -90,4 +91,4 @@ const AuthScreen = () => {
 	)
 }
 
-export default AuthScreen
+export default AuthScreenPage

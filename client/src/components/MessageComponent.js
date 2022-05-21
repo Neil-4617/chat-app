@@ -1,11 +1,12 @@
+import React from 'react'
 import {Box, Typography, Divider} from '@mui/material'
 import ContactComponent from './ContactComponent'
 
 const MessageComponent = () => {
-	const dummyUser = [
+	const dummyUsers = [
 		{id:1, userName: "Remo"},
 		{id:2, userName: "Maxx"},
-		{id:3, userName: "John"}
+		{id:3, userName: "John"},
 	]
 
 	return (
@@ -23,9 +24,9 @@ const MessageComponent = () => {
 			</Typography>
 			<Divider />
 			{
-				dummyUser.map(
+				dummyUsers.map(
 					item => {
-						return <ContactComponent item={item} />
+						return <ContactComponent key={item.id} item={item} />
 					}
 				)
 			}

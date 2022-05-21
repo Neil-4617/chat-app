@@ -1,6 +1,6 @@
 import {Stack, Typography} from '@mui/material'
 
-const DashboardComponent = () => {
+const WelcomeComponent = () => {
 	return (
 		<Stack>
 			<Typography
@@ -10,4 +10,4 @@ const DashboardComponent = () => {
 	)
 }
 
-export default DashboardComponent
+export default WelcomeComponent

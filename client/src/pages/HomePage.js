@@ -1,14 +1,15 @@
 import {Box} from '@mui/material'
-import MessageComponent from '../components/MessageComponent'
-import {Route, Routes} from 'react-router-dom'
-import DashboardComponent from '../components/DashboardComponent'
+import {Routes, Route} from 'react-router-dom'
+// import ContactComponent from '../components/ContactComponent'
+import WelcomeComponent from '../components/WelcomeComponent'
 import MessageScreenComponent from '../components/MessageScreenComponent'
+import MessageComponent from '../components/MessageComponent'
 
 const AllRoutes = () => {
 	return (
 		<Routes>
-			<Route path="/" element={DashboardComponent}/>
-			<Route path="/:id/:name" element ={MessageScreenComponent}/>
+			<Route path="/" element={<WelcomeComponent/>} />
+			<Route path="/:id/:userName" element ={<MessageScreenComponent/>} />
 		</Routes>
 	)
 }

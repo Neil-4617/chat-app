@@ -9,10 +9,10 @@ const ContactComponent = ({item:{id, userName}}) => {
 			direction = "row"
 			spacing = {2}
 			sx={{py:1, px:3}}
-			onClick = {() => navigate(`/${id}/${userName}`) }
+			onClick = {() => navigate(`/${id}/${userName}`)}
 		>
 			<Avatar
-				src={`https://ui-avatars.com/api/?name=${userName}&background=random&size=32&bold=true&fromat=svg`}
+				 src={`https://ui-avatars.com/api/?name=${userName}&background=random&size=32&bold=true&fromat=svg`}
 			/>
 			<Typography
 				variant = "subtitle2"

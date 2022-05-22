@@ -2,6 +2,9 @@ import {useParams} from 'react-router-dom'
 import {AppBar, Toolbar, Avatar, Typography, TextField} from '@mui/material'
 import Box from '@mui/material/Box'
 
+// components
+import MessageCardComponent from './MessageCardComponent'
+
 const MessageScreenComponent = () => {
 	const {userName} = useParams()
 	return (
@@ -18,12 +21,20 @@ const MessageScreenComponent = () => {
 		    </Toolbar>
 		  </AppBar>
 		  <Box
-		  	height="80vh" 
-		  	sx={{backgroundColor: '#e1f5fe'}}>
-		  	hi
+		  	height="70vh" 
+		  	sx={{backgroundColor: "#e1f5fe", p:"10px", overflowY:"auto"}}
+
+		  	>
+		  	<MessageCardComponent text = "Hello there"  date="121212" direction="start"/>
+		  	<MessageCardComponent text = "Hi"  date="121212" direction="end"/>
+		  	<MessageCardComponent text = "Nice to have in our group"  date="121212" direction="start"/>
 		  </Box>
 		  <TextField
 		  	placeholder = "type your message"
+		  	variant = "standard"
+		  	fullWidth
+		  	multiline
+		  	rows = {3}
 		  />
 		</Box>
 	)

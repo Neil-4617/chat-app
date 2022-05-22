@@ -1,5 +1,8 @@
 import React from 'react'
-import {Box, Typography, Divider} from '@mui/material'
+import {Box, Typography, Divider, Stack} from '@mui/material'
+import LogoutIcon from '@mui/icons-material/Logout'
+
+// component
 import ContactComponent from './ContactComponent'
 
 const MessageComponent = () => {
@@ -15,13 +18,19 @@ const MessageComponent = () => {
 			height = "100vh"
 			width = "25vw"
 			padding = "10px"
-		>
-			<Typography 
-				variant ="h6"
-				color ="primary"
+		>	
+			<Stack
+				direction="row"
+				justifyContent="space-between"
 			>
-				Chat
-			</Typography>
+				<Typography 
+					variant ="h6"
+					color ="primary"
+				>
+					Chat
+				</Typography>
+				<LogoutIcon />	
+			</Stack>
 			<Divider />
 			{
 				dummyUsers.map(

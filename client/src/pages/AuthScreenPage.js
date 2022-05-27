@@ -1,13 +1,27 @@
 import React, {useState} from 'react'
 
 // materialUI
-import { Box, Card, Stack, Typography, TextField, Button} from '@mui/material'
+import { Box, Card, Stack, Typography, TextField, Button, CircularProgress, Alert} from '@mui/material'
 
-const AuthScreenPage = () => {
+// apollo
+import {useMutation} from '@apollo/client'
+
+// graphql
+import {SIGNUP_USER, LOGIN_USER} from '../graphql/mutation'
+
+
+const AuthScreenPage = ({setLoggedIn}) => {
 	// state
-	const [showSignup, setShowSignup] = useState(true)
+	const [showSignup, setShowSignup] = useState(false)
 	const [formData, setFormData] = useState({})
-	
+	const [signupUser,{data:signupData,loading:signupLoading,error:signupError}] = useMutation(SIGNUP_USER)
+	const [signinUser,{data:signinUserData,loading:signinUserLoading,error:signinUserError}] = useMutation(LOGIN_USER, {
+		onCompleted(data){
+			localStorage.setItem("jwt", data.signinUser.token)
+			setLoggedIn(true)
+		}
+	})
+
 	// handle event on every textfield
 	const handleChange = (e) => {
 		setFormData({
@@ -16,10 +30,41 @@ const AuthScreenPage = () => {
 		})
 	}
 
+	// loading
+	if(signupLoading || signinUserLoading){
+		return (
+			<Box
+				display ="flex"
+				justifyContent ="center"
+				alignItems = "center"
+				height = "100vh"
+			>
+				<Box textAlign="center">
+					<CircularProgress/>
+					<Typography variant="h6">
+						Processing...
+					</Typography>
+				</Box>
+			</Box>
+		)
+	}
+
 	// handle submit
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		console.log(formData)
+		if(showSignup){
+			signupUser({
+				variables:{
+					userNew: formData
+				}
+			})
+		}else {
+			signinUser({
+				variables:{
+					userSignin: formData
+				}
+			})
+		}
 	}
 
 	return(
@@ -40,6 +85,13 @@ const AuthScreenPage = () => {
 					spacing={2}
 					sx={{width:"400px"}} 
 				>
+					{/* Signup*/}
+					{signupData && <Alert severity="success">{signupData.signupUser.userName} is successfully registered</Alert>}
+					{signupError && <Alert severity="error">{signupError.message}</Alert>}
+					
+					{/* Login*/}
+					{signinUserData && <Alert severity="success">{signinUserData.signinUser.userName} is successfully Login</Alert>}
+					{signinUserError && <Alert severity="error">{signinUserError.message}</Alert>}
 					<Typography variant="h5">Please {showSignup? "Signup":"Login"} </Typography>
 					{
 						showSignup && 
@@ -48,6 +100,7 @@ const AuthScreenPage = () => {
 								label="User Name"
 								variant="standard"
 								onChange={handleChange}
+								required
 							/>						
 					}
 					<TextField
@@ -56,6 +109,7 @@ const AuthScreenPage = () => {
 						label="Email"
 						variant="standard"
 						onChange={handleChange}
+						required
 					/>
 					<TextField
 						type="password"
@@ -63,18 +117,8 @@ const AuthScreenPage = () => {
 						label="Password"
 						variant="standard"
 						onChange={handleChange}
+						required
 					/>
-					{
-						showSignup &&
-						<TextField
-							type="password"
-							name="confirmPassword"
-							label="Confirm Password"
-							variant="standard"
-							onChange={handleChange}
-						/>
-					}
-					
 					<Typography 
 						variant="subtitle2"
 						color="textSecondary"

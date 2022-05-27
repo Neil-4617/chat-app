@@ -13,8 +13,7 @@ datasource db {
 
 model User {
   id Int @id @default(autoincrement())
-  firstName String
-  lastName String
+  userName String
   email String @unique
   password String
   receiver Message[] @relation(name: "receiver")

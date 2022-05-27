@@ -16,7 +16,7 @@ const MessageCardComponent = ({text, date, direction}) => {
 				</Typography>
 				<Typography
 					variant = "caption"
-				>{date}
+				>{new Date(date).toLocaleTimeString()}
 				</Typography>
 				
 			</Box>

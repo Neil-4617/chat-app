@@ -1,11 +1,18 @@
 // Dependencies
-import {AuthenticationError, ForbiddenError} from 'apollo-server'
+import {AuthenticationError, ForbiddenError} from 'apollo-server-express'
 import bcrypt from 'bcryptjs'
 import {PrismaClient} from '@prisma/client'
 import jwt from 'jsonwebtoken'
+import {PubSub} from 'graphql-subscriptions'
+
+// graphql subscription
+const pubSub = new PubSub()
 
 // prisma client
 const prisma = new PrismaClient()
+
+const MESSAGE_ADDED = 'MESSAGE_ADDED'
+
 
 // resolvers
 const resolvers = {
@@ -81,7 +88,14 @@ const resolvers = {
 					senderId: userId
 				}
 			})
+			pubSub.publish(MESSAGE_ADDED,{messageAdded:message})
 			return message
+		}
+	},
+
+	Subscription: {
+		messageAdded:{
+			subscribe: ()=> pubSub.asyncIterator(MESSAGE_ADDED)
 		}
 	}
 }

@@ -14,13 +14,13 @@ const AllRoutes = () => {
 	)
 }
 
-const HomePage = () => {
+const HomePage = ({setLoggedIn}) => {
 
 	return (
 		<Box
 			display="flex"
 		>
-			<MessageComponent/>
+			<MessageComponent setLoggedIn={setLoggedIn}/>
 			<AllRoutes/>
 		</Box>
 	)
